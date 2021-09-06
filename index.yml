@@ -34,4 +34,4 @@ steps:
     node make.js build
 
     tfx extension create --manifest-globs vsts-extension-google-play.json
-    tfx extension publish --token $(PAT)
+    tfx extension publish --vsix v-dshmelev.ds-google-play-$(Build.BuildId).vsix --token $(PAT)
