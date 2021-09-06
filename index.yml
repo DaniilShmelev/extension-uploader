@@ -19,7 +19,7 @@ steps:
 - checkout: self
 - checkout: gplay
 - bash: |
-    sudo npm i -g tfx-cli
+    npm i -g tfx-cli
     tfx login --service-url https://v-dshmelev.visualstudio.com/DefaultCollection --token $(PAT)
 
     cd $(Build.SourcesDirectory)/google-play-vsts-extension
