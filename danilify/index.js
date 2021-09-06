@@ -11,7 +11,7 @@ extensionJson.id = 'ds-google-play';
 extensionJson.publisher = 'v-dshmelev';
 extensionJson.name = 'Daniil Shmelevs Google Play';
 extensionJson.public = false;
-extensionJson.version = version;
+extensionJson.version = `4.0.${version}`;
 fs.writeFileSync(extensionJsonPath, JSON.stringify(extensionJson, null, 4));
 
 const tasksFolders = fs.readdirSync(path.join(repoPath, 'Tasks'));
