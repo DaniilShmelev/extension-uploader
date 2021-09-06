@@ -2,9 +2,6 @@ parameters:
 - name: branch
   displayName: The branch to take the task code from
   default: master
-- name: patch
-  displayName: Uploaded task patch version
-  default: 10
 
 trigger: none
 
@@ -30,7 +27,7 @@ steps:
 
     cd $(Build.SourcesDirectory)/extension-uploader/danilify
     npm i
-    node ./index.js $(Build.SourcesDirectory)/google-play-vsts-extension ${{ parameters.patch }}
+    node ./index.js $(Build.SourcesDirectory)/google-play-vsts-extension $(Build.BuildId)
 
     cd $(Build.SourcesDirectory)/google-play-vsts-extension
     npm i
