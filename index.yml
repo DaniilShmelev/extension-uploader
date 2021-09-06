@@ -5,9 +5,6 @@ parameters:
 
 trigger: none
 
-pool:
-  vmImage: windows-latest
-
 resources:
   repositories:
   - repository: gplay
@@ -18,8 +15,8 @@ resources:
 steps:
 - checkout: self
 - checkout: gplay
-- powershell: |
-    npm i -g tfx-cli
+- bash: |
+    sudo npm i -g tfx-cli
     tfx login --service-url https://v-dshmelev.visualstudio.com/DefaultCollection --token ${{ variables.PAT }}
 
     cd $(Build.SourcesDirectory)/google-play-vsts-extension
