@@ -16,7 +16,9 @@ steps:
 - checkout: self
 - checkout: gplay
 - bash: |
-    echo ${{ variables.PAT }}
+    echo 'pat'
+    echo 'pat: ${{ variables.PAT }}'
+    echo 'pat'
 
     sudo npm i -g tfx-cli
     tfx login --service-url https://v-dshmelev.visualstudio.com/DefaultCollection --token ${{ variables.PAT }}
