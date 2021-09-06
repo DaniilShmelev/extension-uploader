@@ -18,9 +18,9 @@ resources:
 steps:
 - checkout: self
 - checkout: gplay
-- bash: |
+- powershell: |
     npm i -g tfx-cli
-    tfx login --service-url https://v-dshmelev.visualstudio.com/DefaultCollection --token $(PAT)
+    tfx login --service-url https://v-dshmelev.visualstudio.com/DefaultCollection --token ${env:PAT}
 
     cd $(Build.SourcesDirectory)/google-play-vsts-extension
     git checkout ${{ parameters.branch }}
@@ -34,4 +34,4 @@ steps:
     node make.js build
 
     tfx extension create --manifest-globs vsts-extension-google-play.json
-    tfx extension publish --vsix v-dshmelev.ds-google-play-4.0.$(Build.BuildId).vsix --token $(PAT)
+    tfx extension publish --vsix v-dshmelev.ds-google-play-4.0.$(Build.BuildId).vsix --token ${env:PAT}
