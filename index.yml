@@ -1,0 +1,40 @@
+parameters:
+- name: branch
+  displayName: The branch to take the task code from
+  default: master
+- name: patch
+  displayName: Uploaded task patch version
+  default: 10
+
+trigger: none
+
+pool:
+  vmImage: ubuntu-20.04
+
+resources:
+  repositories:
+  - repository: gplay
+    type: github
+    endpoint: DaniilShmelev
+    name: microsoft/google-play-vsts-extension
+
+steps:
+- checkout: self
+- checkout: gplay
+- bash: |
+    sudo npm i -g tfx-cli
+    tfx login --service-url https://v-dshmelev.visualstudio.com/DefaultCollection --token $(PAT)
+
+    cd $(Build.SourcesDirectory)/google-play-vsts-extension
+    git checkout ${{ parameters.branch }}
+
+    cd $(Build.SourcesDirectory)/extension-uploader/danilify
+    npm i
+    node ./index.js $(Build.SourcesDirectory)/google-play-vsts-extension ${{ parameters.patch }}
+
+    cd $(Build.SourcesDirectory)/google-play-vsts-extension
+    npm i
+    node make.js build
+
+    tfx extension create --manifest-globs vsts-extension-google-play.json
+    tfx extension publish --token $(PAT)
