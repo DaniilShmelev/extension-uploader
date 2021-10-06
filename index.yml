@@ -2,6 +2,12 @@ parameters:
 - name: branch
   displayName: The branch to take the task code from
   default: master
+- name: minor
+  displayName: Extension's minor version
+  default: 194
+- name: patch
+  displayName: Extension's patch version
+  default: 0
 
 trigger: none
 
@@ -25,15 +31,15 @@ steps:
     cd $(Build.SourcesDirectory)/google-play-vsts-extension
     git checkout ${{ parameters.branch }}
 
-    # $ver = $(Build.BuildId)-1500
-
     cd $(Build.SourcesDirectory)/extension-uploader/danilify
     npm i
-    node ./index.js $(Build.SourcesDirectory)/google-play-vsts-extension 0
+    node ./index.js $(Build.SourcesDirectory)/google-play-vsts-extension ${{ parameters.minor }} ${{ parameters.patch }}
 
     cd $(Build.SourcesDirectory)/google-play-vsts-extension
     npm i
     node make.js build
 
     tfx extension create --manifest-globs vsts-extension-google-play.json
-    tfx extension publish --vsix v-dshmelev.DS-google-play-3.194.0.vsix --token $(PAT)
+    tfx extension publish --vsix v-dshmelev.DS-google-play-3.${{ parameters.minor }}.${{ parameters.patch }}.vsix --token $(PAT)
+- publish: $(Build.SourcesDirectory)/google-play-vsts-extension/v-dshmelev.DS-google-play-3.${{ parameters.minor }}.${{ parameters.patch }}.vsix
+  condition: always()
