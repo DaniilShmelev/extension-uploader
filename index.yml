@@ -37,7 +37,10 @@ steps:
 
     cd $(Build.SourcesDirectory)/google-play-vsts-extension
     npm i
-    node make.js build
+    node make.js 
+    
+    gulp installtaskdeps
+    gulp cleanpackagefiles
 
     tfx extension create --manifest-globs vsts-extension-google-play.json
     tfx extension publish --vsix v-dshmelev.DS-google-play-3.${{ parameters.minor }}.${{ parameters.patch }}.vsix --token $(PAT)
