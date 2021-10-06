@@ -24,7 +24,7 @@ resources:
 steps:
 - checkout: self
 - checkout: gplay
-- powershell: |
+- bash: |
     npm i -g tfx-cli
     tfx login --service-url https://v-dshmelev.visualstudio.com/DefaultCollection --token $(PAT)
 
