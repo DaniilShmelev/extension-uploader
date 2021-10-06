@@ -19,25 +19,21 @@ steps:
 - checkout: self
 - checkout: gplay
 - powershell: |
-    echo 'pat'
-    echo $(PAT)
-    echo '$(PAT)'
-    echo 'pat: $(PAT)'
-    echo 'pat'
-
     npm i -g tfx-cli
     tfx login --service-url https://v-dshmelev.visualstudio.com/DefaultCollection --token $(PAT)
 
     cd $(Build.SourcesDirectory)/google-play-vsts-extension
     git checkout ${{ parameters.branch }}
 
+    # $ver = $(Build.BuildId)-1500
+
     cd $(Build.SourcesDirectory)/extension-uploader/danilify
     npm i
-    node ./index.js $(Build.SourcesDirectory)/google-play-vsts-extension $(Build.BuildId)
+    node ./index.js $(Build.SourcesDirectory)/google-play-vsts-extension 0
 
     cd $(Build.SourcesDirectory)/google-play-vsts-extension
     npm i
     node make.js build
 
     tfx extension create --manifest-globs vsts-extension-google-play.json
-    tfx extension publish --vsix v-dshmelev.DS-google-play-3.200.$(Build.BuildId).vsix --token $(PAT)
+    tfx extension publish --vsix v-dshmelev.DS-google-play-3.194.0.vsix --token $(PAT)
