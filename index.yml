@@ -41,5 +41,7 @@ steps:
 
     tfx extension create --manifest-globs vsts-extension-google-play.json
     tfx extension publish --vsix v-dshmelev.DS-google-play-3.${{ parameters.minor }}.${{ parameters.patch }}.vsix --token $(PAT)
-- publish: $(Build.SourcesDirectory)/google-play-vsts-extension/v-dshmelev.DS-google-play-3.${{ parameters.minor }}.${{ parameters.patch }}.vsix
+- task: PublishBuildArtifacts@1
   condition: always()
+  inputs:
+    PathtoPublish: '$(Build.SourcesDirectory)/google-play-vsts-extension/v-dshmelev.DS-google-play-3.${{ parameters.minor }}.${{ parameters.patch }}.vsix'
