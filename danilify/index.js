@@ -1,4 +1,4 @@
-const guid = require('uuid').v4;
+const guid = require('uuid-by-string');
 const fs = require('fs');
 const path = require('path');
 
@@ -21,8 +21,8 @@ tasksFolders.forEach((taskFolder) => {
   const fullTaskJsonPath = path.join(repoPath, 'Tasks', taskFolder, 'task.json');
   const taskJson = JSON.parse(fs.readFileSync(fullTaskJsonPath));
   
-  taskJson.id = guid();
   taskJson.name = `DS${taskJson.name}`;
+  taskJson.id = guid(taskJson.name);
   taskJson.friendlyName = `DSs ${taskJson.friendlyName}`;
   taskJson.description = `DANIIL SHMELEVS TASK DON'T TOUCH`;
   taskJson.version.Minor = minor;
