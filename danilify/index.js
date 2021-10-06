@@ -8,9 +8,9 @@ const patch = process.argv[4];
 
 const extensionJsonPath = path.join(repoPath, 'vsts-extension-google-play.json');
 const extensionJson = JSON.parse(fs.readFileSync(extensionJsonPath, 'utf-8'));
-extensionJson.id = 'DS-google-play';
+extensionJson.id = 'DS-google-play-2';
 extensionJson.publisher = 'v-dshmelev';
-extensionJson.name = 'Daniil Shmelevs Google Play';
+extensionJson.name = 'Daniil Shmelevs Google Play 2';
 extensionJson.public = false;
 extensionJson.version = `3.${minor}.${patch}`;
 console.log(JSON.stringify(extensionJson, null, 4));
