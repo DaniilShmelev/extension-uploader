@@ -37,7 +37,7 @@ steps:
 
     cd $(Build.SourcesDirectory)/google-play-vsts-extension
     npm i
-    node make.js 
+    node make.js build
     
     gulp installtaskdeps
     gulp cleanpackagefiles
