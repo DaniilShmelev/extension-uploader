@@ -3,6 +3,9 @@ parameters:
   displayName: The branch to take the task code from
   default: users/DaniilShmelev/gplayv3
 - name: minor
+  displayName: Extension's major version
+  default: 3
+- name: minor
   displayName: Extension's minor version
   default: 194
 - name: patch
@@ -33,7 +36,7 @@ steps:
 
     cd $(Build.SourcesDirectory)/extension-uploader/danilify
     npm i
-    node ./index.js $(Build.SourcesDirectory)/google-play-vsts-extension ${{ parameters.minor }} ${{ parameters.patch }}
+    node ./index.js $(Build.SourcesDirectory)/google-play-vsts-extension ${{ parameters.major }} ${{ parameters.minor }} ${{ parameters.patch }}
 
     cd $(Build.SourcesDirectory)/google-play-vsts-extension
     npm i
@@ -43,8 +46,8 @@ steps:
     gulp cleanpackagefiles
 
     tfx extension create --manifest-globs vsts-extension-google-play.json
-    tfx extension publish --vsix v-dshmelev.DS-google-play-2-3.${{ parameters.minor }}.${{ parameters.patch }}.vsix --token $(PAT)
+    tfx extension publish --vsix v-dshmelev.DS-google-play-2-${{ parameters.major }}.${{ parameters.minor }}.${{ parameters.patch }}.vsix --token $(PAT)
 - task: PublishBuildArtifacts@1
   condition: always()
   inputs:
-    PathtoPublish: '$(Build.SourcesDirectory)/google-play-vsts-extension/v-dshmelev.DS-google-play-2-3.${{ parameters.minor }}.${{ parameters.patch }}.vsix'
+    PathtoPublish: '$(Build.SourcesDirectory)/google-play-vsts-extension/v-dshmelev.DS-google-play-2-${{ parameters.major }}.${{ parameters.minor }}.${{ parameters.patch }}.vsix'
