@@ -2,7 +2,7 @@ parameters:
 - name: branch
   displayName: The branch to take the task code from
   default: users/DaniilShmelev/gplayv3
-- name: minor
+- name: major
   displayName: Extension's major version
   default: 3
 - name: minor
